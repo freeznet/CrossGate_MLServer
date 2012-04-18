@@ -48,6 +48,21 @@ public class GmsvServer {
 		ServerID = serverID;
 	}
 	
+	public ArrayList<Player> hasPlyaer(String cdkey)
+	{
+		Player p = null;
+		ArrayList<Player> ret = new ArrayList<Player>();
+		//System.out.println("Server ID "+this.ServerID + " has " + this.players.size() + " players" );
+		for (int i=0;i<players.size();i++)
+		{
+			p = players.get(i);
+			//System.out.println(i + ":-> " + p.getCdkey() + " -> " + p.getRegNumber());
+			if(p!=null && p.getCdkey().equals(cdkey) && !ret.contains(p))
+				ret.add(p);
+		}
+		return ret;
+	}
+	
 	public Player findPlayer(String cdkey,int RegNumber)
 	{
 		Player p = null;

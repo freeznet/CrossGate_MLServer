@@ -45,6 +45,28 @@ public class ServerList {
 		return gs;
 	}
 	
+	public int hasCdKeyPlayer(String cdkey)
+	{
+		//System.out.println("Looking for "+ cdkey+ " rn: " + rn);
+		//System.out.println("Server Num: "+ servers.size());
+		ArrayList<Player> p = null;
+		int ret = 0;
+		GmsvServer gs = null;
+		for(int i=0;i<servers.size();i++)
+		{
+			gs = servers.get(i);
+			p = gs.hasPlyaer(cdkey);
+			if(p.size()>0)
+			{
+				for(int j = 0; j<p.size();j++){
+					Player pl = p.get(j);
+					ret+=pl.getOnline();
+				}
+			}
+		}
+		return ret;
+	}
+	
 	public Player getPlayer(String cdkey,int rn)
 	{
 		//System.out.println("Looking for "+ cdkey+ " rn: " + rn);

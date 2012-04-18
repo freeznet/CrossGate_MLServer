@@ -183,12 +183,16 @@ class Handler implements Runnable {
 						ml.writeToFile();
 					}
 				}
-				else if(packet[0].equalsIgnoreCase("ACUCheckReq"))
+				else if(packet[0].equalsIgnoreCase("ACUCheckReq"))//×Ô¶¯ÌßÈË
 				{
-					//int RegNumber = Tools.SixtyTwoScale(packet[1]);
+					/*int RegNumber = Tools.SixtyTwoScale(packet[1]);
 					String cdkey = packet[2];
+					if(sl.hasCdKeyPlayer(cdkey)>0 )
+					{
+						
+					}
 					ret = new String[1];
-					ret[0] = "ACUCheck " + cdkey;
+					ret[0] = "ACUCheck " + cdkey;*/
 				}
 				else if(packet[0].equalsIgnoreCase("MessageFlush"))
 				{
