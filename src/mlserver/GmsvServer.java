@@ -6,7 +6,21 @@ public class GmsvServer {
 	private String ServerName = "";
 	private int ServerID = 0;
 	private ArrayList<Player> players = null;
+	private String serverIP = "";
+	private String serverPort = "";
 	
+	public String getServerIP() {
+		return serverIP;
+	}
+	public void setServerIP(String serverIP) {
+		this.serverIP = serverIP;
+	}
+	public String getServerPort() {
+		return serverPort;
+	}
+	public void setServerPort(String serverPort) {
+		this.serverPort = serverPort;
+	}
 	public GmsvServer()
 	{
 		players = new ArrayList<Player>();
@@ -94,4 +108,5 @@ public class GmsvServer {
 			players.remove(p);
 		}
 	}
+	
 }

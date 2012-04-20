@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.concurrent.*;
 
 public class MultiThreadServer {
-	private final int port = 9650;
+	private final int port = 9651;
 	private final ServerSocket serverSocket;
 	private final ExecutorService executorService;// 线程池
 	private final int POOL_SIZE = 5;// 单个CPU线程池大小
@@ -85,6 +85,8 @@ class Handler implements Runnable {
 
 	public String[] echo(final String msg) {
 		String []ret = null;
+		String myIP = socket.getInetAddress().toString();
+		String myPort = Integer.toString(socket.getPort());
 		if(msg!=null)
 		{
 			String[] packet = msg.split(" ");
@@ -97,10 +99,12 @@ class Handler implements Runnable {
 						GmsvServer gs = new GmsvServer();
 						gs.setServerName(packet[1]);
 						gs.setServerID(Integer.parseInt(packet[3]));
+						gs.setServerIP(myIP);
+						gs.setServerPort(myPort);
 						sl.addNewServer(gs);
 						ret = new String[1];
 						ret[0] = "ACServerLogin successful";
-						System.out.println("Authed Server [" +packet[3] + " : " + packet[1] +  "] connected... From "+socket.getInetAddress().toString() + ":" + socket.getPort() + ".");
+						System.out.println("Authed Server [" +packet[3] + " : " + packet[1] +  "] connected... From "+myIP + ":" + myPort + ".");
 					}
 				}
 				else if(packet[0].equalsIgnoreCase("ACServerLogout") )
@@ -185,14 +189,16 @@ class Handler implements Runnable {
 				}
 				else if(packet[0].equalsIgnoreCase("ACUCheckReq"))//自动踢人
 				{
-					/*int RegNumber = Tools.SixtyTwoScale(packet[1]);
+					int RegNumber = Tools.SixtyTwoScale(packet[1]);
 					String cdkey = packet[2];
-					if(sl.hasCdKeyPlayer(cdkey)>0 )
+					GmsvServer gs = sl.getServerFromIP(myIP, myPort);
+					//System.out.println("ACUCheckReq "+RegNumber+" " + cdkey);
+					if(gs.findPlayer(cdkey, RegNumber)!=null && gs.findPlayer(cdkey, RegNumber).getOnline()==1)
 					{
-						
+						//System.out.println("ACUCheckReq sent");
+						ret = new String[1];
+						ret[0] = "ACUCheck " + cdkey;
 					}
-					ret = new String[1];
-					ret[0] = "ACUCheck " + cdkey;*/
 				}
 				else if(packet[0].equalsIgnoreCase("MessageFlush"))
 				{

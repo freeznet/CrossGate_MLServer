@@ -45,6 +45,20 @@ public class ServerList {
 		return gs;
 	}
 	
+	public GmsvServer getServerFromIP(String ip,String p)
+	{
+		GmsvServer gs = null;
+		for(int i=0;i<servers.size();i++)
+		{
+			gs = servers.get(i);
+			if(gs!=null && gs.getServerIP().equalsIgnoreCase(ip) && gs.getServerPort().equalsIgnoreCase(p))
+				return gs;
+			else
+				gs = null;
+		}
+		return gs;
+	}
+	
 	public int hasCdKeyPlayer(String cdkey)
 	{
 		//System.out.println("Looking for "+ cdkey+ " rn: " + rn);
